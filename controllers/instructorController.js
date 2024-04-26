@@ -72,3 +72,33 @@ instructorModel.findOneAndUpdate({ _id: req.params.instructorId }, req.body)
         })
       );
     });
+    
+
+exports.delete = (req, res) => {
+instructorModel.findOneAndDelete(
+  { _id: req.params.instructorId },
+  (err, instructor) => {
+    if (err) {
+      return res.status(500).send(
+        jsend(500, {
+          message: "An error occurred and the instructor could not be removed!",
+        })
+      );
+    }
+
+    if (!instructor) {
+      return res.status(404).send(
+        jsend(404, {
+          message: "instructor not found!",
+        })
+      );
+    }
+
+    res.status(200).send(
+      jsend(200, {
+        instructorId,
+      })
+    );
+  }
+);
+};
